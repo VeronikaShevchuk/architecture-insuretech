@@ -1,0 +1,77 @@
+# schema.graphqls - Схема GraphQL для сервиса client-info
+
+schema {
+  query: Query
+}
+
+# Типы документов клиента
+
+enum DocumentType {
+  PASSPORT
+  DRIVER_LICENSE
+  INTERNATIONAL_PASSPORT
+  BIRTH_CERTIFICATE
+  SNILS
+  INN
+}
+
+# Типы родственных связей
+
+enum RelationType {
+  SPOUSE
+  CHILD
+  PARENT
+  SIBLING
+  GUARDIAN
+  OTHER
+}
+
+# Документ клиента (паспорт, права и т.д.)
+
+type Document {
+  id: ID!
+  type: DocumentType!
+  number: String!
+  issueDate: String
+  expiryDate: String
+}
+
+# Родственник клиента
+
+type Relative {
+  id: ID!
+  relationType: RelationType!
+  name: String!
+  age: Int
+}
+
+# Основная информация о клиенте
+
+type Client {
+  id: ID!
+  name: String!
+  age: Int
+  documents: [Document!]
+  relatives: [Relative!]
+}
+
+# Корневой тип Query
+
+type Query {
+  # Получить клиента по ID
+  client(id: ID!): Client
+  
+  # Получить только документы клиента
+  clientDocuments(clientId: ID!): [Document!]
+  
+  # Получить только родственников клиента
+  clientRelatives(clientId: ID!): [Relative!]
+  
+  # Поиск клиентов по критериям
+  searchClients(
+    name: String,
+    documentType: DocumentType,
+    ageFrom: Int,
+    ageTo: Int
+  ): [Client!]
+}

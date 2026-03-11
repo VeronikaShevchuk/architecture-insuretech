@@ -1,0 +1,11 @@
+query GetClientWithDocuments($clientId: ID!) {
+  client(id: $clientId) {
+    id
+    name
+    documents {
+      type
+      number
+      expiryDate
+    }
+  }
+}
