@@ -1,0 +1,7 @@
+query GetBasicClientInfo($clientId: ID!) {
+  client(id: $clientId) {
+    id
+    name
+    age
+  }
+}

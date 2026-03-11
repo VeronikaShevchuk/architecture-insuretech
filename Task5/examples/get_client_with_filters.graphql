@@ -1,0 +1,11 @@
+query SearchClientsByName($namePattern: String) {
+  searchClients(name: $namePattern) {
+    id
+    name
+    age
+    documents {
+      type
+      number
+    }
+  }
+}

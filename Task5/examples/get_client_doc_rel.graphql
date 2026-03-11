@@ -1,0 +1,18 @@
+query GetFullClientProfile($clientId: ID!) {
+  client(id: $clientId) {
+    id
+    name
+    age
+    documents {
+      type
+      number
+      issueDate
+      expiryDate
+    }
+    relatives {
+      relationType
+      name
+      age
+    }
+  }
+}
